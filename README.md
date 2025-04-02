@@ -102,6 +102,8 @@ chmod +x nixos/repos/dump/20230109_submodules.sh
 ```
 When the files are done downloading, move and merge the files from the created dump folder into the parent (/repos) folder.
 
+## PHASE 3
+
 While those are downloading and before we switch into our new configuration we need a few more files and setup.
 Copy the filesystem and device settings from etc/nixos/hardware-configuration.nix to nixos/hosts/(host-of-choice)/hardware-configuration.nix
 
