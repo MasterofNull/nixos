@@ -9,7 +9,7 @@ The main steps to the install:
 4. Change the configuration files to reflect your hardware and memory configurations.
 5. Use nixos-rebuild to switch the system to the flake of your choice.
 
-"""PHASE 1"""
+# PHASE 1
 
 Create a NixOS USB bootable install.
 Follow the steps on the USB for a new install. 
