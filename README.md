@@ -1,13 +1,12 @@
 # How?
-Folow these instructions to install this OS on a baremetal install. (VM and other install methods just use rascal999/maxos repo and instructions).
+Follow these instructions to install this OS on a bare-metal install. (VM and other install methods just use rascal999/maxos repo and instructions.)
 
-The main steps to the install:
+The main steps to the installation:
 
 1. Install NixOS on the system. Bootable USB preferred.
-2. Pull/Download the NixOS configuration file.
-3. Download resource files and submodules
-4. Change the configuration files to reflect your hardware and memory configurations.
-5. Use nixos-rebuild to switch the system to the flake of your choice.
+2. Pull/Download the NixOS configuration, resources, and submodules files.
+3. Change the configuration files to reflect your hardware and memory configurations.
+4. Use nixos-rebuild to switch the system to the flake of your choice.
 
 # PHASE 1
 
@@ -32,7 +31,6 @@ https://nlewo.github.io/nixos-manual-sphinx/configuration/user-mgmt.xml.html
 https://discourse.nixos.org/t/mkpasswd-m-sha-512-password/23785
 
 Install the system on the largest drive. (We can always move later using the "hardware-configuration.nix" settings)
-
 
 
 Now we have a fresh install complete with missing tools. Let's install those tools.
@@ -115,6 +113,8 @@ nixos/config/shared.nix nixos/hosts/(host-of-choice)/configuration.nix and hardw
 You can compare the above settings/files with the auto-generated config from the initial install.
 
 Which can be found at: etc/nixos/configuration.nix and etc/nixos/hardware-configuration.nix
+
+# PHASE 4
 
 If all that has worked out well.
 Run:
