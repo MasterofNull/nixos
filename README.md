@@ -67,7 +67,9 @@ Restart the machine.
 ```
 sudo dockerd
 ```
+Make sure Docker is running (with the above command) for the next steps. 
 
+# PHASE 2
 
 We need to download some large and old files from git. Let's do some prep.
 ```
@@ -92,12 +94,13 @@ git clone https://github.com/MasterofNull/nixos.git
 We must also copy some scripts into another file location and make them executable. To help download and set up some of our tools.
 ```
 cp nixos/scripts/resources.sh nixos/resources/resources.sh
-cp nixos/scripts/20230109_submodules.sh nixos/repos/20230109_submodules.sh
+cp nixos/scripts/20230109_submodules.sh nixos/repos/dump/20230109_submodules.sh
 chmod +x nixos/resources/resources.sh
-chmod +x nixos/repos/20230109_submodules.sh
+chmod +x nixos/repos/dump/20230109_submodules.sh
 ./nixos/resources/resources.sh -abf
-./nixos/repos/20230109_submodules.sh
+./nixos/repos/dump/20230109_submodules.sh
 ```
+When the files are done downloading, move and merge the files from the created dump folder into the parent (/repos) folder.
 
 While those are downloading and before we switch into our new configuration we need a few more files and setup.
 Copy the filesystem and device settings from etc/nixos/hardware-configuration.nix to nixos/hosts/(host-of-choice)/hardware-configuration.nix
