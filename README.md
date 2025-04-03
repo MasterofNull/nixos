@@ -19,6 +19,10 @@ If you are not familiar or want to get up and running asap set [User-name] to "u
 If you set [User-name] and [Password] to different values during the USB or initial install. 
 The system login will be set to these values until you switch to the final flake configuration. 
 
+It is STRONGLY recommended to use "user" as the initial profile install.
+Many hard-coded file pointers use this name within the NixOS flake and dot files. 
+These file locations and pointers would all need to be changed to the profile/user name chosen. 
+
 If you know how to set user names and passwords in flakes. Then make sure to update them in the shared.nix file.
 
 After the "final" flake switch, the login values will be set to [User-name] = user and [Password] = #1pass.
