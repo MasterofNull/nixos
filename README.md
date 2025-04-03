@@ -97,6 +97,7 @@ git clone https://github.com/MasterofNull/nixos.git
 We must also copy some scripts into another file location and make them executable. To help download and set up some of our tools.
 ```
 cp nixos/scripts/resources.sh nixos/resources/resources.sh
+mkdir nixos/repos/dump
 cp nixos/scripts/20230109_submodules.sh nixos/repos/dump/20230109_submodules.sh
 chmod +x nixos/resources/resources.sh
 chmod +x nixos/repos/dump/20230109_submodules.sh
