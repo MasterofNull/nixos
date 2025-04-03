@@ -88,6 +88,7 @@ Set up Docker:
 https://docs.docker.com/reference/cli/docker/login/#:~:text=%24%20docker%20login%20USING%20WEB%2DBASED,for%20authentication%20in%20the%20browser%E2%80%A6
 
 After your sign-in information is set, let's start getting our NixOS system files.
+The nixos folder with our flakes and dot files needs to be at the location "/home/user/nixos" and be named "nixos".
 Run:
 ```
 git clone https://github.com/MasterofNull/nixos.git
