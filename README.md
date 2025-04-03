@@ -8,7 +8,7 @@ The main steps to the installation:
 3. Change the configuration files to reflect your hardware and memory configurations.
 4. Use nixos-rebuild to switch the system to the flake of your choice.
 
-# PHASE 1
+### PHASE 1
 
 Create a NixOS USB bootable install.
 Follow the steps on the USB for a new install. 
@@ -71,7 +71,7 @@ sudo dockerd
 ```
 Make sure Docker is running (with the above command) for the next steps. 
 
-# PHASE 2
+### PHASE 2
 
 We need to download some large and old files from git. Let's do some prep.
 ```
@@ -107,7 +107,7 @@ cd nixos/repos/dump
 ```
 When the files are done downloading, move and merge the files from the created dump folder into the parent (/repos) folder.
 
-## PHASE 3
+### PHASE 3
 
 While those are downloading and before we switch into our new configuration we need a few more files and setup.
 Copy the filesystem and device settings from etc/nixos/hardware-configuration.nix to nixos/hosts/(host-of-choice)/hardware-configuration.nix
@@ -121,7 +121,7 @@ You can compare the above settings/files with the auto-generated config from the
 
 Which can be found at: etc/nixos/configuration.nix and etc/nixos/hardware-configuration.nix
 
-# PHASE 4
+### PHASE 4
 
 If all that has worked out well.
 Run:
