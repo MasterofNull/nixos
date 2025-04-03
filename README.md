@@ -42,12 +42,12 @@ We will need to fully implament these tools within our current nixos build.
 Add the below settings to "configuration.nix" [Location etc/nixos]:
 ```
 #docker
-virtualization.docker.rootless = {
+virtualisation.docker.rootless = {
   enable = true;
   setSocketVariable = true;
 };
 
-users.extraGroups.docker.members = [ "(user-name)" ]
+users.extraGroups.docker.members = [ "(user-name)" ];
 ```
 In the configuration.nix file add "docker" to the setting "extraGroups = [ "networkmanager" "wheel" ];
 ```
