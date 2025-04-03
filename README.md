@@ -102,7 +102,8 @@ cp nixos/scripts/20230109_submodules.sh nixos/repos/dump/20230109_submodules.sh
 chmod +x nixos/resources/resources.sh
 chmod +x nixos/repos/dump/20230109_submodules.sh
 ./nixos/resources/resources.sh -abf
-./nixos/repos/dump/20230109_submodules.sh
+cd nixos/repos/dump
+./20230109_submodules.sh
 ```
 When the files are done downloading, move and merge the files from the created dump folder into the parent (/repos) folder.
 
