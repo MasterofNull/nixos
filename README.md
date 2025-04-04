@@ -109,7 +109,7 @@ When the files are done downloading, move and merge the files from the created d
 
 While in your home directory initialize Git:
 ```
-git initi
+git init
 ```
 Then cd into the nixos file and add the nixos folder and files to the git:
 ```
