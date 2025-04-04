@@ -107,6 +107,16 @@ cd nixos/repos/dump
 ```
 When the files are done downloading, move and merge the files from the created dump folder into the parent (/repos) folder.
 
+While in your home directory initialize Git:
+```
+git initi
+```
+Then cd into the nixos file and add the nixos folder and files to the git:
+```
+cd nixos
+git add .
+```
+
 ### PHASE 3
 
 While those are downloading and before we switch into our new configuration we need a few more files and setup.
@@ -126,9 +136,11 @@ Which can be found at: etc/nixos/configuration.nix and etc/nixos/hardware-config
 If all that has worked out well.
 Run:
 Note: Replace HOST-NAME with flake names set within the flakes.nix. (Examples: mac, rog, iso, rig)
+Also we can update our nix flake file before switching to our new build. To make sure we don't get any errors while switching.
 
 ```
 cd nixos/
+nix flake update --extra-experimental-features nix-command --extra-experimental-features flakes
 sudo nixos-rebuild --flake .#HOST-NAME --impure switch
 ```
 
