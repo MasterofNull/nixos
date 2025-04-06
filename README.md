@@ -10,6 +10,10 @@ The main steps to the installation:
 
 ### PHASE 1
 
+NOTE:
+Many of these steps and commands can be found in the setup scripts within nixos/scripts/.
+Specifically, nixos/scripts/init.sh and nixos/scripts/setup.sh.
+
 Create a NixOS USB bootable install.
 Follow the steps on the USB for a new install. 
 (I have had problems with warnings and errors during the installation of no BSD while doing custom install options. We will have the option of adding/changing files, disks, and partitions later.)
@@ -51,7 +55,7 @@ virtualisation.docker.rootless = {
   setSocketVariable = true;
 };
 
-users.extraGroups.docker.members = [ "(user-name)" ];
+users.extraGroups.docker.members = [ "USER-NAME" ];
 ```
 In the configuration.nix file add "docker" to the setting "extraGroups = [ "networkmanager" "wheel" ];
 ```
@@ -80,6 +84,11 @@ git config --global core.compression 0
 git config --global http.post Buffer 524288000
 ```
 Set your sign-in credentials for git and Docker using the console.
+
+```
+git config --global user.email "USER-EMAIL"
+git config --global user.name "USER-NAME"
+```
 
 Set up Git:
 https://docs.github.com/en/get-started/git-basics/set-up-git
@@ -115,6 +124,8 @@ Then cd into the nixos file and add the nixos folder and files to the git:
 ```
 cd nixos
 git add .
+git commit -m "Host HOST-NAME"
+git push
 ```
 
 ### PHASE 3
@@ -140,7 +151,10 @@ Also we can update our nix flake file before switching to our new build. To make
 
 ```
 cd nixos/
-nix flake update --extra-experimental-features nix-command --extra-experimental-features flakes
+nix flake --extra-experimental-features nix-command --extra-experimental-features flakes update
+```
+Reboot the machine, then run:
+```
 sudo nixos-rebuild --flake .#HOST-NAME --impure switch
 ```
 
