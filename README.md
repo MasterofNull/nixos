@@ -89,6 +89,10 @@ Set your sign-in credentials for git and Docker using the console.
 git config --global user.email "USER-EMAIL"
 git config --global user.name "USER-NAME"
 ```
+While in your home directory, initialize Git:
+```
+git init
+```
 
 Set up Git:
 https://docs.github.com/en/get-started/git-basics/set-up-git
@@ -116,11 +120,7 @@ cd nixos/repos/dump
 ```
 When the files are done downloading, move and merge the files from the created dump folder into the parent (/repos) folder.
 
-While in your home directory initialize Git:
-```
-git init
-```
-Then cd into the nixos file and add the nixos folder and files to the git:
+CD into the nixos file and add the nixos folder and files to the git:
 ```
 cd nixos
 git add .
