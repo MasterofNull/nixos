@@ -25,7 +25,7 @@ The system login will be set to these values until you switch to the final flake
 
 It is STRONGLY recommended to use "user" as the initial profile install.
 Many hard-coded file pointers use this name within the NixOS flake and dot files. 
-These file locations and pointers would all need to be changed to the profile/user name and location chosen. 
+These file locations and pointers need to be changed to the profile/user name and reflect the location chosen. 
 
 If you know how to set user names and passwords in flakes. Then make sure to update them in the shared.nix file.
 
@@ -44,7 +44,7 @@ Install the system on the largest drive. (We can always move later using the "ha
 Now we have a fresh install complete with missing tools. Let's install those tools.
 When the install is complete, run:
 ```
-sudo nix-env --install git docker wget vscodium firefox
+sudo nix-env --install git docker wget vscodium firefox nixos.x2goserver
 ```
 We will need to fully implament these tools within our current nixos build.
 Add the below settings to "configuration.nix" [Location etc/nixos]:
