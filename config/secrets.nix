@@ -103,6 +103,16 @@
       source = config.age.secrets.api-virustotal.path;
       mode = "0400";
     };
+    backup-info =
+    {
+      source = config.age.secrets.backup-info.path;
+      mode = "0400";
+    };
+    credentials-backup =
+    {
+      source = config.age.secrets.credentials-backup.path;
+      mode = "0400";
+    };
     credentials-google =
     {
       source = config.age.secrets.credentials-google.path;
