@@ -44,10 +44,10 @@ Install the system on the largest drive. (We can always move later using the "ha
 Now we have a fresh install complete with missing tools. Let's install those tools.
 When the install is complete, run:
 ```
-sudo nix-env --install git docker wget vscodium firefox nixos.x2goserver
+sudo nix-env --install git docker wget vscodium firefox
 ```
 We will need to fully implament these tools within our current nixos build.
-Add the below settings to "configuration.nix" [Location etc/nixos]:
+Add the below settings to "configuration.nix" (etc/nixos):
 ```
 #docker
 virtualisation.docker.rootless = {
@@ -142,16 +142,70 @@ You can compare the above settings/files with the auto-generated config from the
 
 Which can be found at: etc/nixos/configuration.nix and etc/nixos/hardware-configuration.nix
 
+During the initial switch to our flake, I am getting floating dependencies for x2goserver. So let's comment that out for now.
+
+nixos/config/shared.nix
+```
+# x2go
+  #services.x2goserver.enable = true;
+```
+
+
 ### PHASE 4
 
 If all that has worked out well.
 Run:
 Note: Replace HOST-NAME with flake names set within the flakes.nix. (Examples: mac, rog, iso, rig)
-Also we can update our nix flake file before switching to our new build. To make sure we don't get any errors while switching.
+
+Also, we can update our NixOS flake file before switching to our new build to speed up error identification while switching.
+
+During the initial install for the larger machine installs. I will edit the flake file (nixos/flake.nix) for the flake I am using to comment out the larger packages list (pkgs_base.nix, pkgs_additional.nix) to speed up the install process and correct or comment out packages and settings that create errors, resulting in a failed flake switch. 
+
+```
+### RIG
+      rig = nixpkgs.lib.nixosSystem {
+        inherit system;
+        modules = configSettings ++ [
+          ./config/docker.nix
+          ./config/grub.nix
+          #./config/pkgs_additional.nix
+          #./config/pkgs_base.nix
+          ./config/pkgs_ui.nix
+          ./config/secrets.nix
+          ./config/syncthing.nix
+          ./hosts/rig/configuration.nix
+          ./hosts/rig/hardware-configuration.nix
+
+          ({ pkgs, ... }: {
+            home-manager.users.user.imports = [
+              ./hosts/rig/home.nix
+              ./hosts/rig/i3/i3.nix
+            ];
+          })
+        ];
+      };  
+```
+
+If the install works, uncomment out the larger package lists (pkgs_base.nix, pkgs_additional.nix) to fully install all programs for the flake of your choice.
 
 ```
 cd nixos/
 nix flake --extra-experimental-features nix-command --extra-experimental-features flakes update
+```
+Reboot the machine, then run:
+```
+sudo nixos-rebuild --flake .#HOST-NAME --impure switch
+```
+
+Optional:
+If you removed the larger package repos to help speed up the install, now is the time to add them back.
+(pkgs_base.nix, pkgs_additional.nix)
+
+If you want to enable the x2go server service. Uncomment the line we edited in the shared.nix file.
+nixos/config/shared.nix
+```
+# x2go
+  services.x2goserver.enable = true;
 ```
 Reboot the machine, then run:
 ```
