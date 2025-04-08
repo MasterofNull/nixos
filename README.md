@@ -86,7 +86,7 @@ git config --global http.post Buffer 524288000
 Set your sign-in credentials for git and Docker using the console.
 
 ```
-git config --global user.email "USER-EMAIL"
+git config --global user.email "{ID}+{username}@users.noreply.github.com"
 git config --global user.name "USER-NAME"
 ```
 While in your home directory, initialize Git:
