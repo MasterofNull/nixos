@@ -16,6 +16,8 @@ in
   "api-tapo-password.age".publicKeys = hosts;
   "api-telegram.age".publicKeys = hosts;
   "api-virustotal.age".publicKeys = hosts;
+  "backup-info.age".publicKeys = hosts;
+  "credentials-backup.age".publicKeys = hosts;
   "credentials-google.age".publicKeys = hosts;
   "jira.age".publicKeys = hosts;
   "password-ddclient.age".publicKeys = hosts;
