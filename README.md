@@ -96,6 +96,8 @@ git init
 
 Set up Git:
 https://docs.github.com/en/get-started/git-basics/set-up-git
+Git Personal Tokens:
+https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#creating-a-personal-access-token-classic
 
 Set up Docker:
 https://docs.docker.com/reference/cli/docker/login/#:~:text=%24%20docker%20login%20USING%20WEB%2DBASED,for%20authentication%20in%20the%20browser%E2%80%A6
