@@ -124,7 +124,7 @@
     enable = true;
     systemCronJobs = [
       "*/5 * * * *       user    /run/current-system/sw/bin/vdirsyncer sync"
-      "30 16 * * * root /home/user/nixos/scripts/backup/backup.py --ssh --gdrive"
+      "30 16 * * *       root    /home/user/nixos/scripts/backup/backup.py --ssh --gdrive"
     ];
   };
 }

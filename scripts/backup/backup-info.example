@@ -1,0 +1,17 @@
+# Example NixOS configuration for /etc/backup-info
+
+# Directory to backup
+# Example: SOURCE_PATH="/home/user/Data"
+SOURCE_PATH=""
+
+# SSH backup settings
+# Example: REMOTE_USER="admin"
+REMOTE_USER=""
+# Example: REMOTE_HOST="192.168.0.254"
+REMOTE_HOST=""
+# Example: REMOTE_PATH="/volume1/syncthing-data/data"
+REMOTE_PATH=""
+
+# Google Drive backup settings
+# GDRIVE_FOLDER="backups"  # Folder in Google Drive to store backups (must be "backups")
+GDRIVE_FOLDER="backups"

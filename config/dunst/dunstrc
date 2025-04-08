@@ -188,7 +188,7 @@
     timeout = 5
 
 [urgency_normal]
-    background = "#F266AB"
+    background = "#4DA7DB"  # Light blue
     foreground = "#000000"
     timeout = 5
 
