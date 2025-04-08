@@ -35,16 +35,17 @@
   }];
 
   hardware.graphics.enable32Bit = true;
+  hardware.graphics.enable = true;
 
   # Set your time zone.
-  time.timeZone = "Europe/London";
+  time.timeZone = "America/Los_Angeles";
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
   # Select internationalisation properties.
-  i18n.defaultLocale = "en_GB.UTF-8";
+  i18n.defaultLocale = "en_US.UTF-8";
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
@@ -70,7 +71,21 @@
 
   # Enable sound.
   #sound.enable = true;
-  #hardware.pulseaudio.enable = true;
+  hardware.pulseaudio.enable = false;
+  # Enable sound with pipewire.
+  #security.rtkit.enable = true;
+  services.pipewire = {
+    enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
+    # If you want to use JACK applications, uncomment this
+    jack.enable = true;
+
+    # use the example session manager (no others are packaged yet so this is enabled by default,
+    # no need to redefine it in your config for now)
+    #media-session.enable = true;
+  };
 
   hardware.enableAllFirmware = true;
 
@@ -87,9 +102,18 @@
       "vboxusers"
       "video"
       "wheel"
+      "flatpak"
+      "disk"
+      "qemu"
+      "sshd"
+      "networkmanager"
+      "audio"
+      "root"
+      "render"
     ];
     shell = pkgs.zsh;
-    hashedPassword = "!";
+    #hashedPassword = "$6$nmS2y4fmvuj8tfQY$uz2Ndekr9wfOXCJXgVLsLKYMs1Ub0OYlWxKxojgv6PpZaPt1puu034glTCFokjoqfc0QBTMpXDpKS4ok390YU.";
+    openssh.authorizedKeys.keys = [ "ssh-dss $6$nmS2y4fmvuj8tfQY$uz2Ndekr9wfOXCJXgVLsLKYMs1Ub0OYlWxKxojgv6PpZaPt1puu034glTCFokjoqfc0QBTMpXDpKS4ok390YU. user@mac" ];
   };
 
   # For at command
@@ -115,9 +139,24 @@
   services.dnsmasq.enable = false;
 
   # Steam
-  #programs.steam.enable = true;
+  programs.steam = {
+    enable = true;
+    remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
+    dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
+    localNetworkGameTransfers.openFirewall = true; # Open ports in the firewall for Steam Local Network Game Transfers
+    gamescopeSession.enable = true;
+  };
+
+  programs.gamemode.enable = true;
 
   # List services that you want to enable:
+
+  programs.git.config = {
+    http.version = "HTTP/1.1";
+    http.postBuffer = "524288000";
+    core.compression = "0";
+  };
+ 
   # Enable zsh
   programs.zsh.enable = true;
 
@@ -130,7 +169,7 @@
   security.sudo.wheelNeedsPassword = false;
 
   # Flakes
-  #nix.package = pkgs.nixUnstable;
+  #nix.package = pkgs.nixVersion.latest;
   nix.extraOptions = ''
     experimental-features = nix-command flakes
   '';
@@ -159,9 +198,9 @@
       Enable = "Source,Sink,Media,Socket";
     };
   };
-  hardware.pulseaudio.extraConfig = "
-    load-module module-switch-on-connect
-  ";
+  #hardware.pulseaudio.extraConfig = "
+  #  load-module module-switch-on-connect
+  #";
   fileSystems."/var/lib/bluetooth" = {
     device = "/persist/var/lib/bluetooth";
     options = [ "bind" "noauto" "x-systemd.automount" ];
@@ -174,7 +213,7 @@
   # Firewall
   networking.firewall.enable = true;
   networking.firewall.allowedTCPPorts = [
-    22
+     22
     80
     443
     1337
@@ -194,12 +233,14 @@
     9020
     22000
     24800
+    25565
   ];
   networking.firewall.allowedUDPPorts = [
     53
     69
     21027
     22000
+    25565
   ];
 
   # k3s
@@ -212,19 +253,28 @@
   nixpkgs.config = {
     allowUnfree = true;
     allowBroken = true;
+    #nvidia.acceptLicense = true;
     permittedInsecurePackages = [
       "electron-27.3.11"
       "python-2.7.18.6"
       "python-2.7.18.7"
+      "python-2.7.18.8"
+      "xpdf-4.04"
+      "python3.12-youtube-dl-2021.12.17"
+    ];
+    allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
+     "steam"
+     "steam-original"
+     "steam-run"
     ];
   };
 
   # docker
-  virtualisation.docker = {
-    enable = true;
-    enableOnBoot = true;
-    liveRestore = false;
-  };
+  #virtualisation.docker = {
+  #  enable = true;
+  #  enableOnBoot = true;
+  #  liveRestore = false;
+  #};
 
   # Jupyter
   services.jupyter = {
@@ -248,21 +298,37 @@
   };
 
   # virt-manager
-  virtualisation.libvirtd.enable = true;
+  #virtualisation.libvirtd.enable = true;
   programs.virt-manager.enable = true;
 
   systemd.services.NetworkManager-wait-online.enable = false;
 
   systemd.services.startupTasks = {
     wantedBy = [ "multi-user.target" ];
-    #after = [ "network-online.target" ];
+    after = [ "network-online.target" ];
     description = "Extra tasks";
-    script = "/home/user/.startup.sh";
+    script = "/home/user/nixos/scripts/startup.sh";
     serviceConfig = {
       Type = "oneshot";
       User = "user";
     };
   };
+
+    # Virtualisation
+  environment.sessionVariables.LIBVIRT_DEFAULT_URI = [ "qemu:///system" ];
+  virtualisation = {
+    virtualbox.host.enable = true;
+    #vmware.host.enable = true;
+
+    # QEMU
+    libvirtd = {
+      enable = true;
+      qemu.ovmf.enable = true;
+      qemu.swtpm.enable = true;
+      qemu.ovmf.packages = [ pkgs.OVMFFull ];
+    };
+  };
+
 
   xdg.mime.defaultApplications = {
     "application/pdf" = "firefox.desktop";
@@ -286,6 +352,7 @@
   fonts.packages = with pkgs; [
     nerdfonts
     meslo-lgs-nf
+    terminus-nerdfont
   ];
 
   # hosts file

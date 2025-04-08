@@ -65,7 +65,7 @@
   networking.nameservers = [ "127.0.0.1" ];
 
   systemd.services.wireproxy = {
-    enable = true;
+    enable = false;
     description = "wireproxy";
 
     # Set the command to start your application
@@ -124,7 +124,7 @@
     enable = true;
     systemCronJobs = [
       "*/5 * * * *       user    /run/current-system/sw/bin/vdirsyncer sync"
-      "30 16 * * *       root    /home/user/git/maxos/scripts/backup/backup.py --ssh --gdrive"
+      "30 16 * * *       root    /home/user/nixos/scripts/backup/backup.py --ssh --gdrive"
     ];
   };
 }
