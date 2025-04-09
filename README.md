@@ -65,8 +65,13 @@ extraGroups = [ "networkmanager" "wheel" "docker" ];
 Time to update our current NixOS build to include rootless Docker.
 Run
 ```
-sudo nixos-rebuild switch
+sudo nixos-rebuild switch 
 ```
+NOTE:
+During final build switch if you get "error: path '/nix/store/*-linux-6.12.20-modules-shrunk/lib' is not in the Nix store"
+
+Add "--upgrade" to the end of the code above.
+
 
 Restart the machine.
 
